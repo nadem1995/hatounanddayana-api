@@ -1,0 +1,71 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
+
+class Category extends Model
+{
+    protected $fillable = [
+        'name',
+        'slug',
+        'image',
+        'status',
+        'description',
+    ];
+
+    protected $casts = [
+        'status' => 'boolean',
+    ];
+
+    protected $hidden = ['pivot'];
+
+    /* ========= BOOT ========= */
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(fn() => Cache::forget('admin.dashboard'));
+        static::updated(fn() => Cache::forget('admin.dashboard'));
+        static::deleted(fn() => Cache::forget('admin.dashboard'));
+
+        static::creating(function ($category) {
+            $category->slug = Str::slug($category->name);
+        });
+
+        static::updating(function ($category) {
+            $category->slug = Str::slug($category->name);
+        });
+    }
+
+    /* ========= RELATIONS ========= */
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
+    }
+
+    /* ========= ACCESSORS ========= */
+
+    public function getImageAttribute($value)
+    {
+        return $value ? asset('storage/' . $value) : null;
+    }
+
+    /* ========= SCOPES ========= */
+
+    public function scopeSearch(Builder $query, ?string $search): Builder
+    {
+        if (! $search) return $query;
+
+        return $query->whereAny(
+            ['name', 'slug'],
+            'LIKE',
+            "%{$search}%"
+        );
+    }
+}
