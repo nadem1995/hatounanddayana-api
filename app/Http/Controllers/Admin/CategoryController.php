@@ -23,6 +23,7 @@ class CategoryController extends Controller
             ->latest()
             ->paginate(10);
 
+
         return CategoryIndexResource::collection($categories);
     }
 
@@ -34,7 +35,7 @@ class CategoryController extends Controller
         $data = $request->validated();
 
         $data['image'] = $request->file('image')->store('categories', 'public');
-        $category = Category::create($data);
+         Category::create($data);
 
         return response()->json([
             'message' => __('categories.created'),
