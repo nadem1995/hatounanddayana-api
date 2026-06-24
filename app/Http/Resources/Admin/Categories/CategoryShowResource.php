@@ -16,11 +16,13 @@ class CategoryShowResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            'name' => [
+                'en'=>$this->name_en,
+                'ar'=>$this->name_ar
+            ],
             'slug' => $this->slug,
             'image' => $this->image,
             'status' => $this->status,
-            'description'=>$this->description,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

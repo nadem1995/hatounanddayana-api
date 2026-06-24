@@ -16,11 +16,13 @@ class CategoryIndexResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name'=>$this->name,
+            'name'=>[
+                'en'=>$this->name_en,
+                'ar'=>$this->name_ar,
+            ],
             'slug' => $this->slug,
             'status' => $this->status,
             'image'=>$this->image,
-            'description'=>$this->description,
             'products_count' => $this->products->count()
         ];
     }

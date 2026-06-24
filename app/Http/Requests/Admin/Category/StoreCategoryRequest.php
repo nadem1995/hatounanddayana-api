@@ -22,9 +22,9 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255', 'unique:categories,name'],
+            'name_en' => ['required', 'string', 'max:255', 'unique:categories,name_en'],
+            'name_ar' => ['required', 'string', 'max:255', 'unique:categories,name_ar'],
             'image' => ['required', 'image', 'mimes:jpg,jpeg,png,webp'],
-            'description' => ['nullable', 'string'],
             'status' => ['required', 'boolean'],
         ];
     }

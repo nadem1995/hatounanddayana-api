@@ -10,11 +10,11 @@ use Illuminate\Support\Str;
 class Category extends Model
 {
     protected $fillable = [
-        'name',
+        'name_en',
+        'name_ar',
         'slug',
         'image',
         'status',
-        'description',
     ];
 
     protected $casts = [
@@ -34,11 +34,11 @@ class Category extends Model
         static::deleted(fn() => Cache::forget('admin.dashboard'));
 
         static::creating(function ($category) {
-            $category->slug = Str::slug($category->name);
+            $category->slug = Str::slug($category->name_en);
         });
 
         static::updating(function ($category) {
-            $category->slug = Str::slug($category->name);
+            $category->slug = Str::slug($category->name_en);
         });
     }
 
@@ -60,12 +60,14 @@ class Category extends Model
 
     public function scopeSearch(Builder $query, ?string $search): Builder
     {
-        if (! $search) return $query;
+        if (! $search) {
+            return $query;
+        }
 
-        return $query->whereAny(
-            ['name', 'slug'],
-            'LIKE',
-            "%{$search}%"
-        );
+        return $query->where(function ($q) use ($search) {
+            $q->where('name_en', 'LIKE', "%{$search}%")
+                ->orWhere('name_ar', 'LIKE', "%{$search}%")
+                ->orWhere('slug', 'LIKE', "%{$search}%");
+        });
     }
 }

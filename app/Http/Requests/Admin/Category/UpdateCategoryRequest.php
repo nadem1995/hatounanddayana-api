@@ -3,29 +3,45 @@
 namespace App\Http\Requests\Admin\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateCategoryRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
+        $categoryId = $this->route('id');
+
         return [
-            'name' => ['sometimes', 'string', 'max:255'],
-            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
-            'description' => ['nullable', 'string'],
-            'status' => ['sometimes', 'boolean'],
+            'name_en' => [
+                'sometimes',
+                'string',
+                'max:255',
+                Rule::unique('categories', 'name_en')->ignore($categoryId),
+            ],
+
+            'name_ar' => [
+                'sometimes',
+                'string',
+                'max:255',
+                Rule::unique('categories', 'name_ar')->ignore($categoryId),
+            ],
+
+            'image' => [
+                'nullable',
+                'image',
+                'mimes:jpg,jpeg,png,webp',
+                'max:2048',
+            ],
+
+            'status' => [
+                'sometimes',
+                'boolean',
+            ],
         ];
     }
 }
