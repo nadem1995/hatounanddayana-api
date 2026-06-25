@@ -17,15 +17,13 @@ class HeroImageController extends Controller
         $heroImage = HeroImage::first();
         if (!$heroImage) {
             return response()->json([
-                'success' => false,
-                'message' => 'Hero image not found.',
                 'data' => null,
             ], 404);
         }
         return response()->json([
             'data' => [
                 'id' => $heroImage->id,
-                'image' => asset('storage/' . $heroImage->image),
+                'image' => $heroImage->image,
             ]
         ]);
     }
@@ -41,8 +39,7 @@ class HeroImageController extends Controller
 
         if (HeroImage::exists()) {
             return response()->json([
-                'success' => false,
-                'message' => 'Hero image already exists. Use update instead.',
+                'message' => __('hero_image.already_exists'),
             ], 422);
         }
 
@@ -53,7 +50,7 @@ class HeroImageController extends Controller
         ]);
 
         return response()->json([
-            'message' => 'Hero image created successfully.',
+            'message' => __('hero_image.created'),
         ], 201);
     }
 
@@ -70,8 +67,7 @@ class HeroImageController extends Controller
 
         if (!$heroImage) {
             return response()->json([
-                'success' => false,
-                'message' => 'Hero image not found.',
+                'message' => __('hero_image.not_found'),
             ], 404);
         }
 
@@ -86,8 +82,7 @@ class HeroImageController extends Controller
         $heroImage->save();
 
         return response()->json([
-            'success' => true,
-            'message' => 'Hero image updated successfully.',
+            'message' => __('hero_image.updated'),
             'data' => $heroImage,
         ]);
     }
@@ -99,8 +94,7 @@ class HeroImageController extends Controller
 
         if (!$heroImage) {
             return response()->json([
-                'success' => false,
-                'message' => 'Hero image not found.',
+                'message' => __('hero_image.not_found'),
             ], 404);
         }
 
@@ -109,8 +103,7 @@ class HeroImageController extends Controller
         $heroImage->delete();
 
         return response()->json([
-            'success' => true,
-            'message' => 'Hero image deleted successfully.',
+            'message' => __('hero_image.deleted'),
         ]);
     }
 }
