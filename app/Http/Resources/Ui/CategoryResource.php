@@ -16,10 +16,11 @@ class CategoryResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            'name' => app()->getLocale() === 'ar'
+                ? $this->name_ar
+                : $this->name_en,
             'image' => $this->image,
             'slug' => $this->slug,
-            'description'=>$this->description
         ];
     }
 }
