@@ -3,63 +3,49 @@
 namespace App\Http\Controllers\Admin\Cms;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Cms\UpdateTestimonialRequest;
-use App\Models\Testimonial;
 use App\Http\Requests\Admin\Cms\StoreTestimonialRequest;
-use App\Http\Resources\Admin\Cms\TestimonialIndexResource;
+use App\Http\Requests\Admin\Cms\UpdateTestimonialRequest;
+use App\Http\Resources\Admin\Cms\TestimonialResource;
+use App\Models\Testimonial;
 
 class TestimonialController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        return TestimonialIndexResource::collection(
+        return TestimonialResource::collection(
             Testimonial::all()
         );
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreTestimonialRequest $request)
     {
-         Testimonial::create([
+        Testimonial::create([
             'name' => $request->name,
-            'message' => $request->message,
-            'source' => $request->source,
+            'message_en' => $request->message_en,
+            'message_ar' => $request->message_ar,
             'rating' => $request->rating,
         ]);
 
         return response()->json([
             'message' => __('testimonials.created'),
-        ],201);
+        ], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $testimonial = Testimonial::findOrFail($id);
 
-        return response()->json([
-            'data' => $testimonial,
-        ], 200);
+        return new TestimonialResource($testimonial);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateTestimonialRequest $request, string $id)
     {
         $testimonial = Testimonial::findOrFail($id);
 
         $testimonial->update([
             'name' => $request->name,
-            'message' => $request->message,
-            'source' => $request->source,
+            'message_en' => $request->message_en,
+            'message_ar' => $request->message_ar,
             'rating' => $request->rating,
         ]);
 
@@ -69,9 +55,6 @@ class TestimonialController extends Controller
         ], 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $testimonial = Testimonial::findOrFail($id);

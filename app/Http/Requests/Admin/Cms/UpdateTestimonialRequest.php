@@ -23,8 +23,8 @@ class UpdateTestimonialRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'message' => 'required|string',
-            'source' => 'nullable|string|max:255',
+            'message_en' => 'required|string',
+            'message_ar' => 'required|string',
             'rating' => 'nullable|integer|min:1|max:5',
         ];
     }

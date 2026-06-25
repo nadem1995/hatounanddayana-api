@@ -22,10 +22,10 @@ class StoreTestimonialRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
-            'message' => 'required|string',
-            'source' => 'nullable|string|max:255',
-            'rating' => 'nullable|integer|min:1|max:5',
+            'name' => ['required', 'string', 'max:255'],
+            'message_en' => ['required', 'string'],
+            'message_ar' => ['required', 'string'],
+            'rating' => ['nullable', 'integer', 'min:1', 'max:5'],
         ];
     }
 }
