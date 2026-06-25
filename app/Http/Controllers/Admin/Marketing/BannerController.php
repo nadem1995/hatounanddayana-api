@@ -26,7 +26,8 @@ class BannerController extends Controller
     public function store(StoreBannerRequest $request)
     {
         $banner = Banner::create([
-            'statement' => $request->statement
+            'statement_en' => $request->statement_en,
+            'statement_ar' => $request->statement_ar,
         ]);
 
         return response()->json([
@@ -43,7 +44,8 @@ class BannerController extends Controller
         $banner = Banner::findOrFail($id);
 
         $banner->update([
-            'statement' => $request->statement
+            'statement_en' => $request->statement_en,
+            'statement_ar' => $request->statement_ar,
         ]);
 
         return response()->json([

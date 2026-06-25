@@ -16,7 +16,10 @@ class BannerIndexResource extends JsonResource
     {
         return  [
             'id' => $this->id,
-            'statement' => $this->statement,
+            'statement' => [
+                'en'=>$this->statement_en,
+                'ar'=>$this->statement_ar
+            ],
         ];
     }
 }

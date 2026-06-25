@@ -22,7 +22,8 @@ class UpdateBannerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'statement' => 'required|string|max:255',
+            'statement_en' => ['required', 'string'],
+            'statement_ar' => ['required', 'string'],
         ];
     }
 }

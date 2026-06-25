@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Banner extends Model
 {
-    protected $fillable = ['statement'];
+    protected $fillable = ['statement_en', 'statement_ar'];
 }
