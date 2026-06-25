@@ -26,7 +26,7 @@ class HomeService
     {
         return CategoryResource::collection(
             Category::where('status', true)
-                ->select('id', 'name', 'image', 'slug', 'description')
+                ->select('id', 'name', 'image', 'slug')
                 ->orderBy('created_at', 'desc')
                 ->get()
         );

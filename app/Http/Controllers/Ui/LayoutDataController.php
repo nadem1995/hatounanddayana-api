@@ -4,22 +4,23 @@ namespace App\Http\Controllers\Ui;
 
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
-use App\Models\SocialMediaSetting;
 use Illuminate\Support\Facades\Cache;
+use App\Http\Resources\Ui\BannerResource;
 
 
 class LayoutDataController extends Controller
 {
-
     public function index()
     {
+        $banners = Cache::remember('banners', 3600, function () {
+            return Banner::all();
+        });
+
         return response()->json([
             'data' => [
-                'banner' => Banner::select('id', 'statement')->get(),
-                'social_links' => SocialMediaSetting::where('status', true)
-                    ->select('name', 'url')
-                    ->get(),
+                'banner' => BannerResource::collection($banners),
             ],
         ]);
     }
 }
+

@@ -8,20 +8,23 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SetLocaleMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
     public function handle(Request $request, Closure $next): Response
-    {// get browser or client preferred language
+    {
+        // Get Accept-Language header
         $locale = $request->header('Accept-Language');
 
-        if (!in_array($locale, ['ar', 'en'])) {
-            $locale = config('app.locale');
+        // Normalize language (en-US → en)
+        if ($locale) {
+            $locale = substr($locale, 0, 2);
         }
-        
+
+        // Validate supported languages
+        if (!in_array($locale, ['ar', 'en'])) {
+            $locale = config('app.locale', 'ar');
+        }
+
         app()->setLocale($locale);
+
         return $next($request);
     }
 }
