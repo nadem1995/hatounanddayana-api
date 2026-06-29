@@ -11,7 +11,6 @@ class BannerResource extends JsonResource
     {
         return [
             'id' => $this->id,
-
             'statement' => app()->getLocale() === 'ar'
                 ? $this->statement_ar
                 : $this->statement_en,
