@@ -20,9 +20,6 @@ class PageResource extends JsonResource
                 ? $this->title_ar
                 : $this->title_en,
             'slug'=>$this->slug,
-            'content' => app()->getLocale() === 'ar'
-                ? $this->content_ar
-                : $this->content_en,
         ];
     }
 }
