@@ -5,6 +5,7 @@ use App\Http\Controllers\Ui\LayoutDataController;
 
 use App\Http\Controllers\Ui\HomePageController;
 use App\Http\Controllers\Ui\ProductController;
+use App\Http\Controllers\Ui\PageController;
 
 
 Route::get('/layout-data', [LayoutDataController::class,'index']);
@@ -12,3 +13,4 @@ Route::get('/home', [HomePageController::class, 'index']);
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{id}', [ProductController::class, 'show']);
 Route::post('/products/favorites', [ProductController::class, 'getFavorite']);
+Route::get('/pages/{slug}', [PageController::class, 'show']);
