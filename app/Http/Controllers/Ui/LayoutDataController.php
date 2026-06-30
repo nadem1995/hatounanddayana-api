@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use App\Http\Resources\Ui\BannerResource;
 use App\Models\Page;
-use Illuminate\Support\Facades\Cache;
 
 
 class LayoutDataController extends Controller
