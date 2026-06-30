@@ -21,8 +21,9 @@ class LayoutDataController extends Controller
                     'title' => app()->getLocale() === 'ar'
                         ? $page->title_ar
                         : $page->title_en,
-                    'slug'=>$this->slug,
-                    'id' => $this->id,
+                    'slug' => $page->slug,
+                    'id'=> $page->id,
+
                 ];
             });
         return response()->json([
