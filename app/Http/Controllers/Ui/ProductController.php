@@ -40,10 +40,6 @@ class ProductController extends Controller
             }
         }
 
-        // ⭐ Best seller filter
-        if ($request->best_seller) {
-            $query->where('is_best_seller', true);
-        }
 
         // 💰 Price filter
         if ($request->min_price) {
