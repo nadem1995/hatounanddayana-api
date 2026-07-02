@@ -12,10 +12,12 @@ class ProductIndexResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            'name' => [
+                'en' => $this->name_en,
+                'ar' => $this->name_ar,
+            ],
             'price' => $this->price,
-            'status' => (bool) $this->status,
-            'is_best_seller' => (bool) $this->is_best_seller,
+            'status' => (bool)$this->status,
             'slug' => $this->slug,
         ];
     }

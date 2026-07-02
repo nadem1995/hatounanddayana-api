@@ -29,10 +29,6 @@ class Category extends Model
     {
         parent::boot();
 
-        static::created(fn() => Cache::forget('admin.dashboard'));
-        static::updated(fn() => Cache::forget('admin.dashboard'));
-        static::deleted(fn() => Cache::forget('admin.dashboard'));
-
         static::creating(function ($category) {
             $category->slug = Str::slug($category->name_en);
         });
@@ -69,5 +65,13 @@ class Category extends Model
                 ->orWhere('name_ar', 'LIKE', "%{$search}%")
                 ->orWhere('slug', 'LIKE', "%{$search}%");
         });
+    }
+
+
+    public function getNameAttribute()
+    {
+        return app()->getLocale() === 'ar'
+            ? $this->name_ar
+            : $this->name_en;
     }
 }

@@ -14,23 +14,35 @@ class ProductShowResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'description' => $this->description,
+            'name' => [
+                'en' => $this->name_en,
+                'ar' => $this->name_ar,
+            ],
+            'description' => [
+                'en' => $this->description_en,
+                'ar' => $this->description_ar,
+            ],
             'price' => $this->price,
-            'status' => (bool) $this->status,
-            'is_best_seller' => (bool) $this->is_best_seller,
+            'status' => (bool)$this->status,
             'slug' => $this->slug,
+
+            // Variants
             'variants' => $this->variants->map(fn($v) => [
                 'id' => $v->id,
+
                 'color' => [
-                    'name' => $v->color_name,
-                    'code' => $v->color_code
+                    'name' => [
+                        'ar' => $v->color_name_ar,
+                        'en' => $v->color_name_en,
+                    ],
+                    'code' => $v->color_code,
                 ],
-                'stock' => $v->stock,
-                'images' => $v->images,
+                'images' => $v->images->map(fn($img) => [
+                    'id' => $img->id,
+                    'image' => $img->image,
+                ]),
             ]),
             'categories' => $this->categories->map(fn($c) => [
                 'id' => $c->id,

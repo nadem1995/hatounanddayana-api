@@ -18,7 +18,8 @@ class CategoryShowResource extends JsonResource
             'id' => $this->id,
             'name' => [
                 'en'=>$this->name_en,
-                'ar'=>$this->name_ar
+                'ar'=>$this->name_ar,
+                'local'=>$this->name
             ],
             'slug' => $this->slug,
             'image' => $this->image,

@@ -15,7 +15,6 @@ Route::middleware('auth:sanctum')
         Route::get('/edit/{slug}', 'edit')->name('edit');
         Route::put('/{id}', 'update')->name('update');
         Route::patch('/{id}/status', 'status')->name('status');
-        Route::patch('/{id}/best-seller', 'bestSeller')->name('best_seller');
         Route::delete('/{id}', 'destroy')->name('destroy');
         Route::delete('/image-variant/{id}', 'destroyImageVariant')->name('destroy_image_variant');
     });

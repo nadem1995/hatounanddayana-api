@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ProductFilter
 {
-    
-    
     public static function apply(Request $request, Builder $query): Builder
     {
         // 🔍 Search
@@ -23,10 +21,6 @@ class ProductFilter
             });
         }
 
-        // ⭐ Best seller
-        if ($request->best_seller) {
-            $query->where('is_best_seller', true);
-        }
 
         // 💰 Price range
         if ($request->min_price) {

@@ -32,12 +32,11 @@ class ProductSeeder extends Seeder
             $name = 'منتج ' . $i;
 
             $product = Product::create([
-                'name' => $name,   
+                'name' => $name,
                 'description' => 'وصف المنتج رقم ' . $i,
                 'slug' => $this->uniqueSlug(Product::class, 'slug', $name),
                 'price' => $faker->numberBetween(50, 500),
                 'status' => $faker->boolean(),
-                'is_best_seller' => $faker->boolean(),
             ]);
 
             // -------------------

@@ -8,13 +8,30 @@ class ProductVariant extends Model
 {
     protected $fillable = [
         'product_id',
-        'color_name',
+        'color_name_ar',
+        'color_name_en',
         'color_code',
-        'stock'
+        'stock',
     ];
 
+    /*
+    |--------------------------------------------------------------------------
+    | Accessors
+    |--------------------------------------------------------------------------
+    */
 
-    /* ========= RELATIONS ========= */
+    public function getColorNameAttribute(): string
+    {
+        return app()->getLocale() === 'ar'
+            ? $this->color_name_ar
+            : $this->color_name_en;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Relationships
+    |--------------------------------------------------------------------------
+    */
 
     public function product()
     {
