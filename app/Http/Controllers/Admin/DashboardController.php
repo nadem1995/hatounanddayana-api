@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\User;
+use App\Models\Page;
 use Illuminate\Support\Facades\Cache;
 
 class DashboardController extends Controller
@@ -15,7 +15,7 @@ class DashboardController extends Controller
         $data = Cache::remember('admin.dashboard', now()->addMinutes(10), function () {
             return [
                 'stats' => [
-                    'customers' => User::where('role', 'customer')->count(),
+                    'pages' => Page::count(),
                     'categories' => Category::count(),
                     'products' => Product::count(),
                 ],
