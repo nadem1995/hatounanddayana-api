@@ -27,9 +27,6 @@ class ProductResource extends JsonResource
                 'variants',
                 fn() => $this->variants->pluck('color_code')->values()
             ),
-            /* 'variants' => ProductVariantResource::collection(
-                $this->whenLoaded('variants')
-            ), */
         ];
     }
 }
