@@ -89,9 +89,34 @@ class ProductController extends Controller
     public function show($slug)
     {
         $product = Product::with(['variants.images'])
-           -> where('slug', $slug)->firstOrFail();
+            ->where('slug', $slug)
+            ->firstOrFail();
 
-        return new ProductDetailResource($product);
+        // Get all colors of the current product
+        $colorsEn = $product->variants
+            ->pluck('color_name_en')
+            ->filter()
+            ->unique();
+
+        $colorsAr = $product->variants
+            ->pluck('color_name_ar')
+            ->filter()
+            ->unique();
+
+        // Find products that share at least one color
+        $relatedProducts = Product::with(['variants.images'])
+            ->where('id', '!=', $product->id)
+            ->whereHas('variants', function ($query) use ($colorsEn, $colorsAr) {
+                $query->whereIn('color_name_en', $colorsEn)
+                    ->orWhereIn('color_name_ar', $colorsAr);
+            })
+            ->distinct()
+            ->get();
+
+        return response()->json([
+            'product' => new ProductDetailResource($product),
+            'related_products' => ProductResource::collection($relatedProducts),
+        ]);
     }
 
 
