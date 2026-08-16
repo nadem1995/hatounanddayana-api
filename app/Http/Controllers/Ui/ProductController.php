@@ -66,7 +66,7 @@ class ProductController extends Controller
         }
 
         // 📄 Pagination (IMPORTANT CHANGE)
-        $products = $query->paginate(9);
+        $products = $query->paginate(12);
 
         // 📂 Categories list (for filters UI)
         $categories = Category::where('status', true)
