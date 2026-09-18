@@ -36,11 +36,17 @@ class Product extends Model
     {
         parent::boot();
 
-        // Generate unique slug after the product has been created
-        static::created(function ($product) {
-            $product->slug = Str::slug($product->name_en) . '-' . $product->id;
+        static::creating(function ($product) {
+            $baseSlug = Str::slug($product->name_en);
 
-            $product->saveQuietly();
+            $slug = $baseSlug;
+            $counter = 1;
+
+            while (static::where('slug', $slug)->exists()) {
+                $slug = $baseSlug . '-' . $counter++;
+            }
+
+            $product->slug = $slug;
         });
     }
 
