@@ -29,14 +29,13 @@ class UpdateProductRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('products', 'name_ar')->ignore($productId),
+
             ],
 
             'name_en' => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('products', 'name_en')->ignore($productId),
             ],
 
             'description_ar' => 'nullable|string',

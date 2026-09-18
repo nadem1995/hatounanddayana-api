@@ -27,8 +27,8 @@ class StoreProductRequest extends FormRequest
             // Product
             // --------------------
 
-            'name_ar' => 'required|string|max:255|unique:products,name_ar',
-            'name_en' => 'required|string|max:255|unique:products,name_en',
+            'name_ar' => 'required|string|max:255',
+            'name_en' => 'required|string|max:255',
 
             'description_ar' => 'nullable|string',
             'description_en' => 'nullable|string',
