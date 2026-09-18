@@ -26,17 +26,21 @@ class Product extends Model
         'status' => 'boolean',
     ];
 
+    /*
+    |--------------------------------------------------------------------------
+    | Model Boot
+    |--------------------------------------------------------------------------
+    */
+
     protected static function boot()
     {
         parent::boot();
 
-        // Generate slug from English name
-        static::creating(function ($product) {
-            $product->slug = Str::slug($product->name_en);
-        });
+        // Generate unique slug after the product has been created
+        static::created(function ($product) {
+            $product->slug = Str::slug($product->name_en) . '-' . $product->id;
 
-        static::updating(function ($product) {
-            $product->slug = Str::slug($product->name_en);
+            $product->saveQuietly();
         });
     }
 
@@ -109,7 +113,6 @@ class Product extends Model
             $q->whereIn('categories.id', $categoryIds);
         });
     }
-
 
     public function scopeWithVariants($query)
     {
