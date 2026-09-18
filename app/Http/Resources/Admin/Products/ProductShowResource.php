@@ -27,6 +27,7 @@ class ProductShowResource extends JsonResource
             'price' => $this->price,
             'status' => (bool)$this->status,
             'slug' => $this->slug,
+            'sizes' => $this->sizes,
 
             // Variants
             'variants' => $this->variants->map(fn($v) => [

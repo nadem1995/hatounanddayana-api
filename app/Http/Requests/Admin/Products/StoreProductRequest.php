@@ -36,6 +36,8 @@ class StoreProductRequest extends FormRequest
             'status' => 'required|boolean',
             'price' => 'required|numeric|min:0',
 
+            'sizes' => ['nullable', 'array'],
+
             // --------------------
             // Variants
             // --------------------

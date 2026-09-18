@@ -24,6 +24,7 @@ class UpdateProductRequest extends FormRequest
             | Product
             |--------------------------------------------------------------------------
             */
+            'sizes' => ['nullable', 'array'],
 
             'name_ar' => [
                 'required',

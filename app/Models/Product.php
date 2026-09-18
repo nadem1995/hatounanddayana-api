@@ -19,11 +19,13 @@ class Product extends Model
         'slug',
         'status',
         'price',
+        'sizes',
     ];
 
     protected $casts = [
         'price' => 'float',
         'status' => 'boolean',
+        'sizes' => 'array',
     ];
 
     /*

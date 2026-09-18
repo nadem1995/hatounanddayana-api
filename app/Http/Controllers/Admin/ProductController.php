@@ -55,6 +55,7 @@ class ProductController extends Controller
                 'description_ar' => $data['description_ar'] ?? null,
                 'description_en' => $data['description_en'] ?? null,
                 'price' => $data['price'],
+                'sizes' => $data['sizes'] ?? [],
             ]);
 
             if (!empty($data['categories'])) {
@@ -138,6 +139,7 @@ class ProductController extends Controller
                 'description_ar' => $data['description_ar'] ?? null,
                 'description_en' => $data['description_en'] ?? null,
                 'price' => $data['price'],
+                'sizes' => $data['sizes'] ?? [],
             ]);
 
             // Sync categories
