@@ -23,6 +23,7 @@ class ProductResource extends JsonResource
             'description'=>$this->description,
             'slug' => $this->slug,
             'image' => $firstImage?->image,
+            'sizes'=>$this->sizes,
             'color_codes' => $this->whenLoaded(
                 'variants',
                 fn() => $this->variants->pluck('color_code')->values()
