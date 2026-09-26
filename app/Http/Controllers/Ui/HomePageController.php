@@ -16,7 +16,7 @@ class HomePageController extends Controller
         return response()->json([
             'data' => [
                 'categories' => CategoryResource::collection(
-                    Category::where('status', 1)->get()
+                    Category::where('status', 1)->latest()->get()
                 ),
                 'heroImage' => $heroImage ? [
                     'id' => $heroImage->id,
